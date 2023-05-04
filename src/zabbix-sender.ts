@@ -1,7 +1,7 @@
 import * as Net from 'net';
 
 export type Item = {
-    host: string;
+    host?: string;
     key: string;
     value: string;
     clock?: number;
@@ -46,23 +46,18 @@ export class ZabbixSender {
         this.items = [];
     }
 
-    public addItem(host: string, key: string, value) {
-        if (arguments.length < 3) {
-            if (arguments.length < 2) {
-                throw new Error('addItem requires at least two arguments');
-            }
-
-            // if 2 args are provided
-            value = key;
-            key = host;
+    public addItem(key: string, value, host?: string) {
+        if (typeof host === 'undefined') {
             host = this._agentHost;
         }
 
-        const length = this.items.push({
+        const item: Item = {
             host: host,
             key: key,
             value: value,
-        });
+        };
+
+        const length = this.items.push(item);
 
         if (this._withTimestamps) {
             this.items[length - 1]['clock'] = Date.now() / 1000 | 0;
@@ -151,5 +146,9 @@ export class ZabbixSender {
 
         // Return the concatenated `header` and `payload` buffers
         return Buffer.concat([header, Buffer.from('\x00\x00\x00\x00'), payload]);
+    }
+
+    public _test_prepareData(items: Item[], withTimeStamp: boolean) {
+        return this.prepareData(items, withTimeStamp);
     }
 }
