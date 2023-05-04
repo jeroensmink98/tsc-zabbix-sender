@@ -42,6 +42,9 @@ export class ZabbixSender {
         this.clearItems();
     }
 
+    /**
+     * Clear the items array
+     */
     private clearItems() {
         this.items = [];
     }
