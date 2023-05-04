@@ -1,16 +1,28 @@
 {
-  "name": "zabbix-send",
+  "name": "tsc-zabbix-sender",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "A Typescript implementation to sent data to Zabbix using the Zabbix trapper protocol.",
+  "main": "zabbix-sender.js",
   "scripts": {
     "build": "tsc"
   },
-  "keywords": [],
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeroensmink98/tsc-zabbix-sender.git"
+  },
+  "keywords": [
+    "zabbix",
+    "sender",
+    "typescript",
+    "trapper"
+  ],
+  "author": "Jeroen Smink <jeroensmink98@gmail.com>",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^18.16.3",
     "typescript": "^5.0.4"
+  },
+  "bugs": {
+    "url": "https://github.com/jeroensmink98/tsc-zabbix-sender/issues"
   }
 }
