@@ -1,6 +1,6 @@
 {
   "name": "tsc-zabbix-sender",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Typescript implementation to sent data to Zabbix using the Zabbix trapper protocol.",
   "main": "zabbix-sender.js",
   "files": [
