@@ -10,7 +10,8 @@
     "node": ">=14.0.0"
   },
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "test": "vitest"
   },
   "repository": {
     "type": "git",
@@ -26,7 +27,8 @@
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^18.16.3",
-    "typescript": "^5.0.4"
+    "typescript": "^5.0.4",
+    "vitest": "^0.31.0"
   },
   "bugs": {
     "url": "https://github.com/jeroensmink98/tsc-zabbix-sender/issues"
