@@ -1,0 +1,38 @@
+# Node.js dependencies
+node_modules/
+
+# Environment variables
+.env
+
+# Logs
+logs/
+*.log
+
+# Built files
+dist/
+build/
+
+# Dependency lock files
+package-lock.json
+yarn.lock
+npm-shrinkwrap.json
+
+# VS Code configuration files
+.vscode/
+
+# IDE and editor settings
+*.sublime-project
+*.sublime-workspace
+*.idea/
+*.ipr
+*.iws
+*.iml
+*.editorconfig
+
+# OS generated files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Icon?
+ehthumbs_vista.db
+desktop.ini
