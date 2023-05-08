@@ -16,9 +16,9 @@ Afterwards you can import the package into your project:
 
 ```typescript
 const zabbixSender = new ZabbixSender({
-        host: '172.26.48.1',
-        port: 10051,
-        agentHost: 'TRNL-HEE-NAS03'
+        host: 'xxx',
+        port: xxx,
+        agentHost: 'xxx'
     });
 
     await zabbixSender.addItem('key', 'value');
