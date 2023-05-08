@@ -1,3 +1,4 @@
+import { log } from 'console';
 import { Item, ZabbixSender } from '../src/zabbix-sender';
 import { expect, test, describe } from 'vitest';
 
@@ -112,5 +113,6 @@ describe('ZabbixSender prepareData tests', () => {
         expect(payloadJson).toHaveProperty('clock');
     });
 });
+
 
 
