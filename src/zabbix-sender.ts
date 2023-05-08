@@ -1,4 +1,7 @@
+import { log } from 'console';
 import * as Net from 'net';
+import { Buffer } from 'buffer';
+import { Parser } from 'binary-parser';
 
 export type Item = {
     host?: string;
@@ -14,6 +17,7 @@ export type Options = {
     timeout?: number;
     withTimeStamp?: boolean;
     agentHost?: string;
+    withNs?: boolean;
 };
 
 /**
@@ -24,7 +28,8 @@ export class ZabbixSender {
     private _serverPort: number;
     private _timeout: number;
     private _withTimestamps: boolean;
-    private _agentHost: string;
+    private _withNs: boolean;
+    public _agentHost: string;
     private items: Item[] = [];
 
     constructor(options: Options) {
@@ -35,6 +40,7 @@ export class ZabbixSender {
         this._serverHost = options.host || 'localhost';
         this._serverPort = options.port || 10051;
         this._timeout = options.timeout || 5000;
+        this._withNs = options.withNs || false;
         this._withTimestamps = options.withTimeStamp || false;
         this._agentHost = options.agentHost || ' ';
 
@@ -118,8 +124,9 @@ export class ZabbixSender {
                 return callback(new Error("got invalid response from server"), {});
             }
 
-            // return the response
-            const responseString = Buffer.from(response).toString();
+            const jsonData = response.slice(13);
+            // Convert the buffer to a string and parse it as JSON
+            const responseString = jsonData.toString();
             callback(null, JSON.parse(responseString), items);
         });
     }
@@ -127,8 +134,8 @@ export class ZabbixSender {
     private prepareData(items: Item[], withTimeStamp: boolean) {
         // Create a new object with the `request` and `data` properties
         const data = {
-            request: 'sender data',
-            data: items,
+            "request": 'sender data',
+            "data": items,
         };
 
         if (withTimeStamp) {
@@ -148,10 +155,35 @@ export class ZabbixSender {
         header.writeInt32LE(payload.length, 5);
 
         // Return the concatenated `header` and `payload` buffers
-        return Buffer.concat([header, Buffer.from('\x00\x00\x00\x00'), payload]);
+        log(Buffer.concat([header, Buffer.from("\x00\x00\x00\x00"), payload]).toString('ascii'));
+        return Buffer.concat([header, Buffer.from("\x00\x00\x00\x00"), payload]);
     }
 
     public _test_prepareData(items: Item[], withTimeStamp: boolean) {
         return this.prepareData(items, withTimeStamp);
     }
 }
+
+async function main() {
+    const zabbixSender = new ZabbixSender({
+        host: '172.26.48.1',
+        port: 10051,
+        agentHost: 'TRNL-HEE-NAS03'
+    });
+
+    await zabbixSender.addItem('key', 'value');
+
+    
+    await zabbixSender.addItem('key', 1000);
+    await zabbixSender.addItem('cpu_usage', 99);
+    await zabbixSender.addItem('ram_usage', 1024);
+
+
+    await zabbixSender.send((err, res, items) => {
+        if (err) {
+            console.log(err);
+        }
+    });
+};
+
+main();
