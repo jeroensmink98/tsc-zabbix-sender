@@ -114,6 +114,15 @@ describe('ZabbixSender prepareData tests', () => {
     });
 });
 
+/**
+ * ZabbixSender send tests
+ */
+describe('ZabbixSender send tests', () => {
+    test('send with items and without timestamp', async () => {
+        
+    });
+});
+
 
 
 

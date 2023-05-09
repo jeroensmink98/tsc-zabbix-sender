@@ -50,7 +50,7 @@ export class ZabbixSender {
     /**
      * Clear the items array
      */
-    private clearItems() {
+    public clearItems() {
         this.items = [];
     }
 

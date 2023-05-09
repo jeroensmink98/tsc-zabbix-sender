@@ -34,3 +34,8 @@ const zabbixSender = new ZabbixSender({
         }
     }); 
 ```
+
+
+## Protocol References
+https://www.zabbix.org/wiki/Docs/protocols/zabbix_sender/3.4
+https://www.zabbix.org/wiki/Docs/protocols/zabbix_agent/3.4
