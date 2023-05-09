@@ -34,6 +34,38 @@ const zabbixSender = new ZabbixSender({
         }
     }); 
 ```
+## Instance options
+
+Whenever you create a new instance of zabbix sender, you can pass an options object (e.g new ZabbixSender(opts)) here are the options defaults:
+```javascript
+{
+    host: 'localhost',
+    port: 10051,
+    timeout: 5000,
+    with_ns: false,
+    with_timestamps: false,
+    items_host: require('os').hostname()
+}
+```
+- `host` and `port` are self-explanatory, the zabbix server host & port
+- `timeout` is a socket timeout in milliseconds, when connecting to the zabbix server
+- `with_timestamps` when you `addItem`, timestamp will be added as well
+- `with_ns` implies `with_timestamps`, nanoseconds portion of the timestamp seconds will be added to the item
+- `items_host` a target monitored host in zabbix. used when you don't specify the host when you `addItem`, see example above
+
+## Instance methods
+
+`addItem([host], key, value)`
+
+Adds an item to the request payload. The item data won't be sent until the send method invoked. The return value is self instance, so chaining can be used.
+
+`clearItems()`
+
+Clears the previously added items (if any). Mostly used internally, but you can use this method, if you want to make sure no orphan items are present. The return value is self instance, so chaining can be used.
+
+`send(callback)`
+
+Sends all items that were added to the request payload. The callback function passes 3 arguments error (if any), the response from zabbix server (trapper), and the items array of item objects. The send method clears items that were previously added. In case of error, the previously added items will be kept, for the next send invocation.
 
 
 ## Protocol References
