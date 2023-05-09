@@ -184,7 +184,7 @@ export class ZabbixSender {
         header.writeInt32LE(payload.length, 5);
 
         // Return the concatenated `header` and `payload` buffers
-        log(Buffer.concat([header, Buffer.from("\x00\x00\x00\x00"), payload]).toString('ascii'));
+        // log(Buffer.concat([header, Buffer.from("\x00\x00\x00\x00"), payload]).toString('ascii'));
         return Buffer.concat([header, Buffer.from("\x00\x00\x00\x00"), payload]);
     }
 
