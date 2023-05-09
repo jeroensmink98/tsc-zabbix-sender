@@ -21,23 +21,30 @@ const SenderA = new ZabbixSender({
     agentHost: 'xxx'
 });
 
-// Or
-const SenderB = new ZabbixSender({
-    host: 'xxx',
-    port: xxx,
-});
-
-// You can also specify the host when adding the item
-SenderB.addItem('key', 'value', 'host');
-
-SenderB.addItem('key', 'value');
-
 // It's possible to add multiple items to your sender
 SenderA.addItem('key', 1000);
 SenderA.addItem('cpu_usage', 99);
 SenderA.addItem('ram_usage', 1024);
 
 SenderA.send((err, res, items) => {
+    if (err) {
+        console.log(err);
+    }
+}); 
+
+//
+// Or specify a different host for each item
+//
+
+const SenderB = new ZabbixSender({
+    host: 'xxx',
+    port: xxx,
+});
+
+SenderB.addItem('key', 'value', 'host-a.com');
+SenderB.addItem('key', 'value', 'host-b.com');
+
+SenderB.send((err, res, items) => {
     if (err) {
         console.log(err);
     }
