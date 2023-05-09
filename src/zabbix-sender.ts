@@ -1,7 +1,6 @@
 import { log } from 'console';
 import * as Net from 'net';
 import { Buffer } from 'buffer';
-import { Parser } from 'binary-parser';
 
 export type Item = {
     host?: string;
