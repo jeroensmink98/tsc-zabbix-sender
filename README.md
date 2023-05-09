@@ -69,5 +69,4 @@ Sends all items that were added to the request payload. The callback function pa
 
 
 ## Protocol References
-https://www.zabbix.org/wiki/Docs/protocols/zabbix_sender/3.4
-https://www.zabbix.org/wiki/Docs/protocols/zabbix_agent/3.4
+[Zabbix Trapper Protocol](https://www.zabbix.com/documentation/current/en/manual/appendix/items/trapper)
