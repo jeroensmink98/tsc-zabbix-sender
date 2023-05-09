@@ -43,7 +43,6 @@ export class ZabbixSender {
         this._withTimestamps = options.withTimeStamp || false;
         this._agentHost = options.agentHost || ' ';
 
-        // TODO: Clear Items
         this.clearItems();
     }
 
@@ -54,6 +53,16 @@ export class ZabbixSender {
         this.items = [];
     }
 
+    /**
+     * Adds an item to the internal `items` array with the specified key, value, and optional host.
+     * The item will also include a timestamp if `_withTimestamps` is set to true.
+     *
+     * @public
+     * @param {string} key - The key associated with the item.
+     * @param {any} value - The value to be associated with the item.
+     * @param {string} [host] - The host associated with the item (optional). If not provided, it will default to `_agentHost`.
+     * @returns {void}
+     */
     public addItem(key: string, value, host?: string) {
         if (typeof host === 'undefined') {
             host = this._agentHost;
@@ -72,6 +81,18 @@ export class ZabbixSender {
         }
     }
 
+    /**
+     * Sends the items to the Zabbix server via a TCP socket. The response is returned via the provided callback function.
+     * If an error occurs or the response is invalid, the items are added back to the internal `items` array.
+     *
+     * @public
+     * @param {function} [callback] - The callback function to handle the server's response (optional). If not provided, an empty function is used.
+     * @param {Error | null} callback.error - An Error object if an error occurred, or null if successful.
+     * @param {Object} callback.response - The parsed JSON response from the server, or an empty object if an error occurred.
+     * @param {Array<Item>} callback.items - The items sent in the request.
+     * @returns {void}
+     * @throws {Error} - If a socket error occurs or if the socket times out.
+     */
     public send(callback: any) {
         callback = (typeof callback !== 'undefined') ? callback : () => { };
 
@@ -130,6 +151,15 @@ export class ZabbixSender {
         });
     }
 
+    /**
+     * Prepares the data to be sent to the Zabbix server by converting it into the Zabbix protocol format.
+     * The resulting buffer includes a header with the Zabbix protocol information and the payload containing the items.
+     *
+     * @private
+     * @param {Item[]} items - An array of items to be sent to the Zabbix server.
+     * @param {boolean} withTimeStamp - A flag indicating whether timestamps should be included in the data.
+     * @returns {Buffer} - The concatenated buffer of the Zabbix protocol header and the JSON stringified payload, ready to be sent to the server.
+     */
     private prepareData(items: Item[], withTimeStamp: boolean) {
         // Create a new object with the `request` and `data` properties
         const data = {
