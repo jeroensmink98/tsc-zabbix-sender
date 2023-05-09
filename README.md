@@ -35,7 +35,6 @@ SenderA.send((err, res, items) => {
 //
 // Or specify a different host for each item
 //
-
 const SenderB = new ZabbixSender({
     host: 'xxx',
     port: xxx,
