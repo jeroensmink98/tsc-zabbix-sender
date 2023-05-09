@@ -162,28 +162,4 @@ export class ZabbixSender {
     public _test_prepareData(items: Item[], withTimeStamp: boolean) {
         return this.prepareData(items, withTimeStamp);
     }
-}
-
-async function main() {
-    const zabbixSender = new ZabbixSender({
-        host: '172.26.48.1',
-        port: 10051,
-        agentHost: 'TRNL-HEE-NAS03'
-    });
-
-    await zabbixSender.addItem('key', 'value');
-
-    
-    await zabbixSender.addItem('key', 1000);
-    await zabbixSender.addItem('cpu_usage', 99);
-    await zabbixSender.addItem('ram_usage', 1024);
-
-
-    await zabbixSender.send((err, res, items) => {
-        if (err) {
-            console.log(err);
-        }
-    });
 };
-
-main();
