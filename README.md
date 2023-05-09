@@ -15,33 +15,29 @@ npm install zabbix-sender-ts
 Afterwards you can import the package into your project:
 
 ```typescript
-const zabbixSender = new ZabbixSender({
+const SenderA = new ZabbixSender({
     host: 'xxx',
     port: xxx,
     agentHost: 'xxx'
 });
 
 // Or
-const Sender = new ZabbixSender({
+const SenderB = new ZabbixSender({
     host: 'xxx',
     port: xxx,
 });
 
 // You can also specify the host when adding the item
-Sender.addItem('key', 'value', 'host');
+SenderB.addItem('key', 'value', 'host');
 
+SenderB.addItem('key', 'value');
 
+// It's possible to add multiple items to your sender
+SenderA.addItem('key', 1000);
+SenderA.addItem('cpu_usage', 99);
+SenderA.addItem('ram_usage', 1024);
 
-await zabbixSender.addItem('key', 'value');
-
-
-
- // It's possible to add multiple items to your sender
-await zabbixSender.addItem('key', 1000);
-await zabbixSender.addItem('cpu_usage', 99);
-await zabbixSender.addItem('ram_usage', 1024);
-
-await zabbixSender.send((err, res, items) => {
+SenderA.send((err, res, items) => {
     if (err) {
         console.log(err);
     }
