@@ -8,7 +8,7 @@ You can install this package using npm:
 
 ```bash
 
-npm install zabbix-sender-ts
+npm i tsc-zabbix-sender
 
 ```
 
