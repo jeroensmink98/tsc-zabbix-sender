@@ -28,7 +28,7 @@
   "devDependencies": {
     "@types/node": "^20.2.5",
     "typescript": "^5.0.4",
-    "vitest": "^0.34.3"
+    "vitest": "^2.0.5"
   },
   "bugs": {
     "url": "https://github.com/jeroensmink98/tsc-zabbix-sender/issues"
